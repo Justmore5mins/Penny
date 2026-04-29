@@ -1,23 +1,23 @@
 #include "Utils.h"
+#include "Constants.h"
 
-SoftwarePID::SoftwarePID(float kP, float kI, float kD, float setpoint)
-  : kP(kP),
-    kI(kI),
-    kD(kD),
-    setpoint(setpoint){};
+SoftwarePID::SoftwarePID(ClosedLoopConfig pid,  float setpoint):
+  pid(pid),
+  setpoint(setpoint){};
 
-SoftwarePID::SoftwarePID(float kP, float kI, float kD){
-  SoftwarePID(kP,kI,kD, 0);
-}
 
-float SoftwarePID::calculateOutput(float current, float setpoint, long dT){
-  float delta = setpoint - current;
-  return 
-    this-> kP *   delta  +
-    this-> kI * ( delta * dT ) +
-    this-> kD * ( delta / dT);
+SoftwarePID::SoftwarePID(ClosedLoopConfig pid){
+  SoftwarePID(pid, 0);
 };
 
+float SoftwarePID::calculateOutput(float current, float setpoint, long dT){
+  float delta = current - setpoint;
+  return 
+  pid.kP *   delta +
+  pid.kI * ( delta * dT) + 
+  pid.kD * ( delta / dT);
+}
+
 float SoftwarePID::calculateOutput(float current, long dT){
-  return calculateOutput(current, this->setpoint, dT);
+  return calculateOutput(current, setpoint, dT);
 }

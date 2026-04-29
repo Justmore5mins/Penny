@@ -1,10 +1,18 @@
+#include "ClosedLoop.h"
+
 class SoftwarePID{
   private:
-    float kP, kI, kD;
+    ClosedLoopConfig pid;
     float setpoint;
   public:
-    SoftwarePID(float kP, float kI, float kD);
-    SoftwarePID(float kP, float kI, float kD, float setpoint);
+    SoftwarePID(ClosedLoopConfig pid);
+    SoftwarePID(ClosedLoopConfig pid, float setpoint);
     float calculateOutput(float current, long dT);
     float calculateOutput(float current, float setpoint, long dT);
+};
+
+
+class SwerveModule{
+  private:
+    int MotorID, EncoderID;
 };
