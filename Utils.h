@@ -1,18 +1,34 @@
-#include "ClosedLoop.h"
-
-class SoftwarePID{
-  private:
-    ClosedLoopConfig pid;
-    float setpoint;
-  public:
-    SoftwarePID(ClosedLoopConfig pid);
-    SoftwarePID(ClosedLoopConfig pid, float setpoint);
-    float calculateOutput(float current, long dT);
-    float calculateOutput(float current, float setpoint, long dT);
+struct ClosedLoopConfig{
+  float kP, kI, kD;
 };
 
+struct FeedForwardConfig{
+  float kS, kV, kA;
+};
 
-class SwerveModule{
-  private:
-    int MotorID, EncoderID;
+struct Position{
+  float pos;
+};
+
+struct Velocity{
+  float vel;
+};
+
+struct Acceleration{
+  float accel;
+};
+
+struct MotorState{
+  Position CurrentPosition, PositionAbsoulte;
+  Velocity CurrentVelocity;
+  Acceleration CurrentAcceleration;
+  long TimeStamp;
+};
+
+struct ChassisSpeeds{
+  float vx, vy, omega;
+};
+
+struct Pose2d{
+  float x, y, facing;
 };

@@ -1,6 +1,8 @@
-void setup() {
-  // put your setup code here, to run once:
+#include "Wire.h"
 
+void setup() {
+  Wire.begin();
+  
 }
 
 void loop() {
