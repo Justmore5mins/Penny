@@ -33,12 +33,21 @@ Drivetrain::Drivetrain(SoftwarePID LeftPID, SoftwarePID RightPID, FeedForwardCon
   ff(WheelFF),
   LeftEncoder(AS5600()),
   RightEncoder(AS5600()){
-    
   };
   
 MotorState Drivetrain::getLeftState(){
-  long CurrentTime = millis();
   MotorState currentState = MotorState{
-    
+   (long int)LeftEncoder.getCumulativePosition(),
+    LeftEncoder.getAngularSpeed(AS5600_MODE_RPS, true),
+    millis()
   };
 }
+
+MotorState Drivetrain::getRightState(){
+  MotorState currentState = MotorState{
+   (long int)RightEncoder.getCumulativePosition(),
+    RightEncoder.getAngularSpeed(AS5600_MODE_RPS, true),
+    millis()
+  };
+}
+

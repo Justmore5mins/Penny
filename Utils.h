@@ -7,22 +7,17 @@ struct FeedForwardConfig{
 };
 
 struct Position{
-  float pos;
+  int pos;
 };
 
 struct Velocity{
   float vel;
 };
 
-struct Acceleration{
-  float accel;
-};
-
 struct MotorState{
-  Position CurrentPosition, PositionAbsoulte;
+  long unsigned int CurrentPosition;
   Velocity CurrentVelocity;
-  Acceleration CurrentAcceleration;
-  long TimeStamp;
+  unsigned long TimeStamp;
 };
 
 struct ChassisSpeeds{
