@@ -10,8 +10,8 @@ class SoftwarePID{
   public:
     SoftwarePID(ClosedLoopConfig pid);
     SoftwarePID(ClosedLoopConfig pid, float setpoint);
-    float calculateOutput(float current, long dT);
-    float calculateOutput(float current, float setpoint, long dT);
+    float calculateOutput(float current, long dT, bool isStandardized);
+    float calculateOutput(float current, float setpoint, long dT, bool isStandardized);
     void withSetpoint(float setpoint);
 };
 
@@ -28,8 +28,8 @@ class SG90{
     */
     float getPosition();
     void turnTo(float degree);
-    void set(float percent)
-}
+    void set(float percent);
+};
 
 class Drivetrain{
   private:

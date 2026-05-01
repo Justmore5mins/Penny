@@ -1,4 +1,4 @@
-#include <avr/interrupt.h>
+
 #include "Servo.h"
 #include "AS5600.h"
 #include "Arduino.h"
@@ -20,7 +20,7 @@ void SoftwarePID::withSetpoint(float setpoint){
   this->setpoint = setpoint;
 }
 
-float SoftwarePID::calculateOutput(float current, float setpoint, long dT, boolean isStandardized){
+float SoftwarePID::calculateOutput(float current, float setpoint, long dT, bool isStandardized){
   float delta = (current - setpoint)/(isStandardized ? setpoint : 1);
   return 
     pid.kP *   delta +
@@ -28,10 +28,10 @@ float SoftwarePID::calculateOutput(float current, float setpoint, long dT, boole
     pid.kD * ( delta / dT);
 }
 
-float SoftwarePID::calculateOutput(float current, long dT, boolean isStandardized){
+float SoftwarePID::calculateOutput(float current, long dT, bool isStandardized){
   return calculateOutput(current, setpoint , dT, isStandardized);
 }
-}
+
 
 SG90::SG90(int ID, SoftwarePID ctrl):
   control(ctrl){
