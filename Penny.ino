@@ -1,11 +1,13 @@
-#include "Wire.h"
+#include <Servo.h>
+
+Servo SteeringMotor;
 
 void setup() {
-  Wire.begin();
-  
+  SteeringMotor.attach(3);
+  Serial.begin(115200);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  SteeringMotor.write(-1);
+  delay(1500);
 }
