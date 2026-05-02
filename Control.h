@@ -18,34 +18,45 @@ class SoftwarePID{
 
 class SG90{
   private:
-    SoftwarePID control;
     Servo motor;
+    MotorState state;
   public:
-    SG90(int ID, SoftwarePID ctrl);
 
     /**
-    Output value in `degrees`
+    Inherhit from Servo library, with some modification.
+    IMPORTANT: the `Servo.write(float)` in 360 degree sero is velocity based control.
+    */
+    SG90(int ID);
+    /**
+    get position in `Degrees`
     */
     float getPosition();
-    void turnTo(float degree);
-    void set(float percent);
+    /**
+    get velocity in `Deg/s`
+    */
+    float getVelocity();
+    /**
+    move the shaft to target position in `Degrees`
+    */
+    void toPosition(float deg);
+
+    /**
+    request the dutycycle
+    */
+    void set(float DutyCycle);
 };
 
-class Drivetrain{
+class L9110S{
   private:
-    SoftwarePID LeftPID, RightPID, SteerPID;
-    FeedForwardConfig ff;
-    AS5600 LeftEncoder, RightEncoder;
-    MotorState LeftLastState, RightLastState, SteerLastState;
-
+    int LeftDirection, LeftSpeed, RightDirection, RightSpeed;
+    MotorState state;
   public:
-    Drivetrain(SoftwarePID LeftPID, SoftwarePID RightPID, SoftwarePID SteerPID, FeedForwardConfig WheelFF);
-    MotorState getLeftState();
-    MotorState getRightState();
-    MotorState getSteerState();
-    ChassisSpeeds getSpeeds();
-
-    void steer(float Position);
-
-    Pose2d getPose();
+    L9110S(int LeftDirID, int LeftSpeedID, int RightDirectionID, int RightSpeedID);
+    DriveMotorState getPosition();
+    DriveMotorState getVelocity();
+    void setVelocity(DriveMotorState vel);
+    /**
+    Accepting duty cycle in `Percent`, ranging from `0` to `1`.
+    */
+    void set(DriveMotorState DutyCycle);
 };

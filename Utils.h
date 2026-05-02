@@ -14,6 +14,10 @@ struct Velocity{
   float vel;
 };
 
+struct DriveMotorState{
+  float LeftMotor, RightMotor;
+};
+
 struct MotorState{
   long unsigned int CurrentPosition;
   Velocity CurrentVelocity;
